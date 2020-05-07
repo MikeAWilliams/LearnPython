@@ -34,7 +34,7 @@ class BowlingTest(unittest.TestCase):
 
     def test_three_frame_second_to_last(self):
         with pytest.raises(Exception):
-            frames = [[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1, 1],[1, 1, 0]]
+            frames = [[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1, 1],[1, 1]]
             assert bowling.BowlingScore(frames)
 
     def test_perfrect_game(self):
@@ -44,6 +44,16 @@ class BowlingTest(unittest.TestCase):
     def test_last_frame_required_to_be_size_three(self):
         with pytest.raises(Exception):
             frames = [[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1]]
+            assert bowling.BowlingScore(frames)
+
+    def test_to_few_frames(self):
+        with pytest.raises(Exception):
+            frames = [[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1]]
+            assert bowling.BowlingScore(frames)
+
+    def test_to_many_frames(self):
+        with pytest.raises(Exception):
+            frames = [[1,1],[1,1],[1,1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1],[1, 1]]
             assert bowling.BowlingScore(frames)
 
 if __name__ == '__main__':
