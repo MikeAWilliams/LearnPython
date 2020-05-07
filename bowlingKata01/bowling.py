@@ -11,7 +11,7 @@ def IsStrike(frame):
 
 def IsSpare(frame):
     if not IsStrike(frame):
-        return 10 == DumbScoreFrame(frame)
+        return 10 == frame[0] + frame[1]
     return False
 
 def ScoreFrame(thisFrame, nextFrame, thirdFrame):
@@ -29,7 +29,7 @@ def ScoreFrameByIndex(index, frames):
     thirdFrame = [0,0]
     thisFrame = frames[index]
 
-    if nextIndex < len(frames):
+    if nextIndex < 10:
         nextFrame = frames[nextIndex]
         thirdFrame = nextFrame
     else:

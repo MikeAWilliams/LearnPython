@@ -16,7 +16,7 @@ class BowlingTest(unittest.TestCase):
         self.assertEqual(9*19 + 9, bowling.BowlingScore(frames))
 
     def test_all_spare(self):
-        frames = [[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[5]]
+        frames = [[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1],[9, 1, 5]]
         self.assertEqual(9*19 + 15, bowling.BowlingScore(frames))
 
     def test_all_strike(self):
