@@ -1,5 +1,4 @@
 import unittest
-import pytest
 import bowling
 
 class BowlingTest(unittest.TestCase):
