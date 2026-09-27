@@ -148,6 +148,10 @@ def solve_map_no_doors_and_run():
     print("final sate is", state)
 
 
+def solve_by_treasure_key_door_exit():
+    state, map = start_new_run(False, "dungeon1.txt")
+
+
 def test_do_a_run():
     # hit a door
     result = do_a_run("dddrrurrddrr")
@@ -163,5 +167,8 @@ def test_do_a_run():
 
 state, map = start_new_run(True)
 print_map_nice(map)
-
+test_do_a_run()
+print("\nSolving no doors\n")
 solve_map_no_doors_and_run()
+print("\nSolving \n")
+solve_by_treasure_key_door_exit()
