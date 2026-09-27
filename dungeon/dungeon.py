@@ -16,8 +16,8 @@ def get_starter_map():
     ]
 
 
-def get_map_from_file():
-    with open("dungeon1.txt") as f:
+def get_map_from_file(file):
+    with open(file) as f:
         return f.read().splitlines()
 
 
@@ -25,7 +25,7 @@ def get_map(from_file=None):
     if not from_file:
         list_of_strings = get_starter_map()
     else:
-        list_of_strings = get_map_from_file()
+        list_of_strings = get_map_from_file(from_file)
     dungeon = [list(r) for r in list_of_strings]
     return dungeon
 
@@ -153,8 +153,8 @@ def solve_map_no_doors_and_run():
 
 
 def solve_by_treasure_key_door_exit():
-    state, map = start_new_run(False, "dungeon1.txt")
-    print_map_nice(map)
+    state, map = start_new_run(False, "dungeon_big.txt")
+    # print_map_nice(map)
 
     route = find_route_to_target(state.pos.copy(), map, "k", set({"#", "D"}))
     state = execute_moves(route, state, map)
