@@ -121,7 +121,7 @@ def solve_map_no_doors(pos, map):
             visited[new_pos.j][new_pos.i] = True
             if map[new_pos.j][new_pos.i] == "E":
                 return new_path
-            return None
+        return None
 
     while len(queue) > 0:
         p, path = queue.pop(0)
