@@ -156,7 +156,7 @@ def solve_by_treasure_key_door_exit():
     state, map = start_new_run(False, "dungeon1.txt")
     print_map_nice(map)
 
-    route = find_route_to_target(state.pos.copy(), map, "k", set(["#", "D"]))
+    route = find_route_to_target(state.pos.copy(), map, "k", set({"#", "D"}))
     state = execute_moves(route, state, map)
     route = find_route_to_target(state.pos.copy(), map, "T", set("#"))
     state = execute_moves(route, state, map)
