@@ -18,7 +18,7 @@ def get_starter_map():
 
 def get_map_from_file():
     with open("dungeon1.txt") as f:
-        return f.readlines()
+        return f.read().splitlines()
 
 
 def get_map(from_file=None):
@@ -154,6 +154,15 @@ def solve_map_no_doors_and_run():
 
 def solve_by_treasure_key_door_exit():
     state, map = start_new_run(False, "dungeon1.txt")
+    print_map_nice(map)
+
+    route = find_route_to_target(state.pos.copy(), map, "k", set(["#", "D"]))
+    state = execute_moves(route, state, map)
+    route = find_route_to_target(state.pos.copy(), map, "T", set("#"))
+    state = execute_moves(route, state, map)
+    route = find_route_to_target(state.pos.copy(), map, "E", set("#"))
+    state = execute_moves(route, state, map)
+    print(state)
 
 
 def test_do_a_run():
@@ -169,8 +178,6 @@ def test_do_a_run():
     print(result)
 
 
-state, map = start_new_run(True)
-print_map_nice(map)
 test_do_a_run()
 print("\nSolving no doors\n")
 solve_map_no_doors_and_run()
