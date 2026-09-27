@@ -21,9 +21,11 @@ def get_map_from_file():
         return f.readlines()
 
 
-def get_map():
-    # list_of_strings = get_starter_map()
-    list_of_strings = get_map_from_file()
+def get_map(from_file=None):
+    if not from_file:
+        list_of_strings = get_starter_map()
+    else:
+        list_of_strings = get_map_from_file()
     dungeon = [list(r) for r in list_of_strings]
     return dungeon
 
@@ -54,9 +56,9 @@ class PlayerState:
         return copy.deepcopy(self)
 
 
-def start_new_run(remove_doors=False):
+def start_new_run(remove_doors=False, from_file=None):
     start = None
-    map = get_map()
+    map = get_map(from_file)
     for j, r in enumerate(map):
         for i, l in enumerate(r):
             if l == "S":
@@ -68,8 +70,8 @@ def start_new_run(remove_doors=False):
     return PlayerState(start, 0, 0, False), map
 
 
-def do_a_run(moves, remove_doors=False):
-    state, map = start_new_run(remove_doors=remove_doors)
+def do_a_run(moves, remove_doors=False, from_file=None):
+    state, map = start_new_run(remove_doors, from_file)
     for m in moves:
         new_pos = state.pos.copy()
         if m == "u":
@@ -138,26 +140,27 @@ def solve_map_no_doors(pos, map):
 
 
 def solve_map_no_doors_and_run():
-    state, map = start_new_run(True)
+    state, map = start_new_run(True, "dungeon1.txt")
     route = solve_map_no_doors(state.pos.copy(), map)
     print("number of moves is", len(route), "route is", route)
-    state = do_a_run(route, True)
+    state = do_a_run(route, True, "dungeon1.txt")
     print("final sate is", state)
+
+
+def test_do_a_run():
+    # hit a door
+    result = do_a_run("dddrrurrddrr")
+    print(result)
+
+    # get a key
+    result = do_a_run("dddrrurruurrddrruu")
+    print(result)
+    # wins
+    result = do_a_run("dddrrurruurrddrruuddlluulldddddddddrrrrr")
+    print(result)
 
 
 state, map = start_new_run(True)
 print_map_nice(map)
 
-# hit a door
-result = do_a_run("dddrrurrddrr")
-print(result)
-
-# get a key
-result = do_a_run("dddrrurruurrddrruu")
-print(result)
-# wins
-result = do_a_run("dddrrurruurrddrruuddlluulldddddddddrrrrr")
-print(result)
-
-print("\nsolving without doors\n")
 solve_map_no_doors_and_run()
