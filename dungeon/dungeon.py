@@ -107,7 +107,7 @@ def do_a_run(moves, remove_doors=False, from_file=None):
     return state
 
 
-def solve_map_no_doors(pos, map):
+def find_route_to_target(pos, map, target, blocking_symbols):
     visited = [[False for _ in row] for row in map]
     visited[pos.j][pos.i] = True
     if map[pos.j][pos.i] == "E":
@@ -116,10 +116,13 @@ def solve_map_no_doors(pos, map):
     queue.append((pos, ""))
 
     def process_a_move(new_pos, new_path):
-        if map[new_pos.j][new_pos.i] != "#" and not visited[new_pos.j][new_pos.i]:
+        if (
+            not visited[new_pos.j][new_pos.i]
+            and map[new_pos.j][new_pos.i] not in blocking_symbols
+        ):
             queue.append((Point(new_pos.i, new_pos.j), new_path))
             visited[new_pos.j][new_pos.i] = True
-            if map[new_pos.j][new_pos.i] == "E":
+            if map[new_pos.j][new_pos.i] == target:
                 return new_path
         return None
 
@@ -139,7 +142,7 @@ def solve_map_no_doors(pos, map):
 
 def solve_map_no_doors_and_run():
     state, map = start_new_run(True, "dungeon1.txt")
-    route = solve_map_no_doors(state.pos.copy(), map)
+    route = find_route_to_target(state.pos.copy(), map, "E", ["#"])
     print("number of moves is", len(route), "route is", route)
     state = do_a_run(route, True, "dungeon1.txt")
     print("final sate is", state)
