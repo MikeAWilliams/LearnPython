@@ -110,7 +110,7 @@ def do_a_run(moves, remove_doors=False, from_file=None):
 def find_route_to_target(pos, map, target, blocking_symbols):
     visited = [[False for _ in row] for row in map]
     visited[pos.j][pos.i] = True
-    if map[pos.j][pos.i] == "E":
+    if map[pos.j][pos.i] == target:
         return ""
     queue = []
     queue.append((pos, ""))
@@ -142,7 +142,7 @@ def find_route_to_target(pos, map, target, blocking_symbols):
 
 def solve_map_no_doors_and_run():
     state, map = start_new_run(True, "dungeon1.txt")
-    route = find_route_to_target(state.pos.copy(), map, "E", ["#"])
+    route = find_route_to_target(state.pos.copy(), map, "E", set("#"))
     print("number of moves is", len(route), "route is", route)
     state = do_a_run(route, True, "dungeon1.txt")
     print("final sate is", state)
