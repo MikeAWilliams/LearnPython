@@ -125,18 +125,15 @@ def solve_map_no_doors(pos, map):
 
     while len(queue) > 0:
         p, path = queue.pop(0)
-        winning_path = process_a_move(Point(p.i, p.j + 1), path + "d")
-        if winning_path:
-            return winning_path
-        winning_path = process_a_move(Point(p.i, p.j - 1), path + "u")
-        if winning_path:
-            return winning_path
-        winning_path = process_a_move(Point(p.i + 1, p.j), path + "r")
-        if winning_path:
-            return winning_path
-        winning_path = process_a_move(Point(p.i - 1, p.j), path + "l")
-        if winning_path:
-            return winning_path
+        for new_point, new_path in [
+            (Point(p.i, p.j + 1), path + "d"),
+            (Point(p.i, p.j - 1), path + "u"),
+            (Point(p.i + 1, p.j), path + "r"),
+            (Point(p.i - 1, p.j), path + "l"),
+        ]:
+            winning_path = process_a_move(new_point, new_path)
+            if winning_path:
+                return winning_path
     return None
 
 
