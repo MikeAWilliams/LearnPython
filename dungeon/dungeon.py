@@ -1,5 +1,6 @@
 import copy
 import dataclasses
+from collections import deque
 from operator import truediv
 
 
@@ -116,7 +117,8 @@ def find_route_to_target(pos, map, target, blocking_symbols):
     visited[pos.j][pos.i] = True
     if map[pos.j][pos.i] == target:
         return ""
-    queue = []
+    # queue = []
+    queue = deque()
     queue.append((pos, ""))
 
     def process_a_move(new_pos, new_path):
@@ -131,7 +133,8 @@ def find_route_to_target(pos, map, target, blocking_symbols):
         return None
 
     while len(queue) > 0:
-        p, path = queue.pop(0)
+        # p, path = queue.pop(0)
+        p, path = queue.popleft()
         for new_point, new_path in [
             (Point(p.i, p.j + 1), path + "d"),
             (Point(p.i, p.j - 1), path + "u"),
