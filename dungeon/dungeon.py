@@ -114,29 +114,30 @@ def solve_map_no_doors(pos, map):
         return ""
     queue = []
     queue.append((pos, ""))
+
+    def process_a_move(new_pos, new_path):
+        if map[new_pos.j][new_pos.i] != "#" and not visited[new_pos.j][new_pos.i]:
+            queue.append((Point(new_pos.i, new_pos.j), new_path))
+            visited[new_pos.j][new_pos.i] = True
+            if map[new_pos.j][new_pos.i] == "E":
+                return new_path
+            return None
+
     while len(queue) > 0:
         p, path = queue.pop(0)
-        if map[p.j + 1][p.i] != "#" and not visited[p.j + 1][p.i]:
-            queue.append((Point(p.i, p.j + 1), path + "d"))
-            visited[p.j + 1][p.i] = True
-            if map[p.j + 1][p.i] == "E":
-                return path + "u"
-        if map[p.j - 1][p.i] != "#" and not visited[p.j - 1][p.i]:
-            queue.append((Point(p.i, p.j - 1), path + "u"))
-            visited[p.j - 1][p.i] = True
-            if map[p.j - 1][p.i] == "E":
-                return path + "d"
-        if map[p.j][p.i + 1] != "#" and not visited[p.j][p.i + 1]:
-            queue.append((Point(p.i + 1, p.j), path + "r"))
-            visited[p.j][p.i + 1] = True
-            if map[p.j][p.i + 1] == "E":
-                return path + "r"
-        if map[p.j][p.i - 1] != "#" and not visited[p.j][p.i - 1]:
-            queue.append((Point(p.i - 1, p.j), path + "l"))
-            visited[p.j][p.i - 1] = True
-            if map[p.j][p.i - 1] == "E":
-                return path + "l"
-    raise Exception("couldn't find the exit")
+        winning_path = process_a_move(Point(p.i, p.j + 1), path + "d")
+        if winning_path:
+            return winning_path
+        winning_path = process_a_move(Point(p.i, p.j - 1), path + "u")
+        if winning_path:
+            return winning_path
+        winning_path = process_a_move(Point(p.i + 1, p.j), path + "r")
+        if winning_path:
+            return winning_path
+        winning_path = process_a_move(Point(p.i - 1, p.j), path + "l")
+        if winning_path:
+            return winning_path
+    return None
 
 
 def solve_map_no_doors_and_run():
