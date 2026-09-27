@@ -72,6 +72,10 @@ def start_new_run(remove_doors=False, from_file=None):
 
 def do_a_run(moves, remove_doors=False, from_file=None):
     state, map = start_new_run(remove_doors, from_file)
+    return execute_moves(moves, state, map)
+
+
+def execute_moves(moves, state, map):
     for m in moves:
         new_pos = state.pos.copy()
         if m == "u":
